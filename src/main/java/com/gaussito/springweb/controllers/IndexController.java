@@ -14,7 +14,7 @@ public class IndexController {
 
     @GetMapping(path = {"/","/index","/home"})
     public ModelAndView index(ModelAndView model){
-        model.addObject("title","Hola Spring Framework");
+        model.addObject("title","Hola Spring Framework with Model And View");
         model.setViewName("index");
         return model;
     }
