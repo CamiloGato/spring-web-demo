@@ -3,9 +3,14 @@ package com.gaussito.springweb.controllers;
 import com.gaussito.springweb.models.Usuario;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 
 @Controller
@@ -30,4 +35,20 @@ public class IndexController {
         return model;
     }
 
+    @RequestMapping(path = "/usuarios", method = RequestMethod.GET)
+    public ModelAndView usuarios(ModelAndView model){
+        model.addObject("title","Listado de usuarios");
+        model.setViewName("usuarios");
+        return model;
+    }
+
+    @ModelAttribute("usuarios")
+    public List<Usuario> getUsuarios() {
+        List<Usuario> usuarios = Arrays.asList(
+                new Usuario("Juan", "Perez", "test@test.com"),
+                new Usuario("Pedro", "Perez"),
+                new Usuario("Maria", "Perez")
+        );
+        return usuarios;
+    }
 }
