@@ -1,6 +1,7 @@
 package com.gaussito.springweb.controllers;
 
 import com.gaussito.springweb.models.Usuario;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -17,9 +18,16 @@ import java.util.List;
 @RequestMapping("/app")
 public class IndexController {
 
+    @Value("${texto.indexcontroller.index.titulo}")
+    private String textoIndex;
+    @Value("${texto.indexcontroller.perfil.titulo}")
+    private String textoPerfil;
+    @Value("${texto.indexcontroller.listar.titulo}")
+    private String textoListar;
+
     @GetMapping(path = {"","/","/index","/home"})
     public ModelAndView index(ModelAndView model){
-        model.addObject("title","Hola Spring Framework with Model And View");
+        model.addObject("title", textoIndex);
         model.setViewName("index");
         return model;
     }
@@ -30,14 +38,14 @@ public class IndexController {
         usuario.setNombre("Juan");
         usuario.setApellido("Perez");
         model.addObject("usuario", usuario);
-        model.addObject("title","Perfil de usuario: " + usuario.getNombre());
+        model.addObject("title", textoPerfil + " " + usuario.getNombre());
         model.setViewName("perfil");
         return model;
     }
 
     @RequestMapping(path = "/usuarios", method = RequestMethod.GET)
     public ModelAndView usuarios(ModelAndView model){
-        model.addObject("title","Listado de usuarios");
+        model.addObject("title", textoListar);
         model.setViewName("usuarios");
         return model;
     }
